@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\SlugTrait;
+
 use App\Repository\TypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: TypeRepository::class)]
 class Type
 {
+    use SlugTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -24,7 +27,7 @@ class Type
     #[ORM\ManyToOne(inversedBy: 'types')]
     private ?Categorie $categorie = null;
 
-    #[ORM\OneToMany(mappedBy: 'Type', targetEntity: Articles::class)]
+    #[ORM\OneToMany(mappedBy: 'type', targetEntity: Articles::class)]
     private Collection $articles;
 
     public function __construct()

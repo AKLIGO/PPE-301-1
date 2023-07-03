@@ -2,15 +2,18 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\SlugTrait;
 use App\Repository\ArticlesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Internal\SQLResultCasing;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 class Articles
 {
+    use SlugTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -37,8 +40,8 @@ class Articles
     #[ORM\Column]
     private ?bool $valid = null;
 
-    #[ORM\OneToMany(mappedBy: 'articlesImg', targetEntity: ArticlesImages::class)]
-    private Collection $articlesImages;
+    // #[ORM\OneToMany(mappedBy: 'articlesImg', targetEntity: ArticlesImages::class)]
+    // private Collection $articlesImages;
 
     #[ORM\OneToMany(mappedBy: 'articlesImages', targetEntity: Marque::class)]
     private Collection $marques;
@@ -48,7 +51,7 @@ class Articles
 
     public function __construct()
     {
-        $this->articlesImages = new ArrayCollection();
+        //$this->articlesImages = new ArrayCollection();
         $this->marques = new ArrayCollection();
         $this->detaileCommandes = new ArrayCollection();
     }
@@ -142,35 +145,35 @@ class Articles
         return $this;
     }
 
-    /**
-     * @return Collection<int, ArticlesImages>
-     */
-    public function getArticlesImages(): Collection
-    {
-        return $this->articlesImages;
-    }
+    // /**
+    //  * @return Collection<int, ArticlesImages>
+    //  */
+    // public function getArticlesImages(): Collection
+    // {
+    //     return $this->articlesImages;
+    // }
 
-    public function addArticlesImage(ArticlesImages $articlesImage): static
-    {
-        if (!$this->articlesImages->contains($articlesImage)) {
-            $this->articlesImages->add($articlesImage);
-            $articlesImage->setArticlesImg($this);
-        }
+    // public function addArticlesImage(ArticlesImages $articlesImage): static
+    // {
+    //     if (!$this->articlesImages->contains($articlesImage)) {
+    //         $this->articlesImages->add($articlesImage);
+    //         $articlesImage->setArticlesImg($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeArticlesImage(ArticlesImages $articlesImage): static
-    {
-        if ($this->articlesImages->removeElement($articlesImage)) {
-            // set the owning side to null (unless already changed)
-            if ($articlesImage->getArticlesImg() === $this) {
-                $articlesImage->setArticlesImg(null);
-            }
-        }
+    // public function removeArticlesImage(ArticlesImages $articlesImage): static
+    // {
+    //     if ($this->articlesImages->removeElement($articlesImage)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($articlesImage->getArticlesImg() === $this) {
+    //             $articlesImage->setArticlesImg(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Marque>

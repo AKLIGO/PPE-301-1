@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: DetaileCommandesRepository::class)]
 class DetaileCommandes
 {
+
     // #[ORM\Id]
     // #[ORM\GeneratedValue]
     // #[ORM\Column]
