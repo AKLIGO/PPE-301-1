@@ -50,7 +50,7 @@ class Articles
     private Collection $detaileCommandes;
 
 
-    #[ORM\OneToMany(targetEntity: ArticlesImages::class, mappedBy: "article")]
+    #[ORM\ManyToOne(targetEntity: ArticlesImages::class, inversedBy: "articles")]
 
     private Collection $articlesImages;
 

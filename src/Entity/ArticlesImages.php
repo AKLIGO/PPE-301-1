@@ -21,7 +21,7 @@ class ArticlesImages
 
 
 
-    #[ORM\ManyToOne(targetEntity: Articles::class, inversedBy: "articlesImages")]
+    #[ORM\OneToMany(targetEntity: Articles::class, mappedBy: "articlesImages")]
     #[ORM\JoinColumn(nullable: false)]
 
     private ?Articles $article = null;
