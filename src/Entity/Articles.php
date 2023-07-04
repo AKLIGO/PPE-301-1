@@ -43,17 +43,28 @@ class Articles
     // #[ORM\OneToMany(mappedBy: 'articlesImg', targetEntity: ArticlesImages::class)]
     // private Collection $articlesImages;
 
-    #[ORM\OneToMany(mappedBy: 'articlesImages', targetEntity: Marque::class)]
+    #[ORM\OneToMany(mappedBy: 'articles', targetEntity: Marque::class)]
     private Collection $marques;
 
     #[ORM\OneToMany(mappedBy: 'articles', targetEntity: DetaileCommandes::class)]
     private Collection $detaileCommandes;
+
+
+    #[ORM\OneToMany(targetEntity: ArticlesImages::class, mappedBy: "article")]
+
+    private Collection $articlesImages;
+
+
+
+
 
     public function __construct()
     {
         //$this->articlesImages = new ArrayCollection();
         $this->marques = new ArrayCollection();
         $this->detaileCommandes = new ArrayCollection();
+        $this->articlesImages = new ArrayCollection();
+        // $this->articlesImg = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -187,7 +198,7 @@ class Articles
     {
         if (!$this->marques->contains($marque)) {
             $this->marques->add($marque);
-            $marque->setArticlesImages($this);
+            $marque->setArticlesMarque($this);
         }
 
         return $this;
@@ -197,8 +208,8 @@ class Articles
     {
         if ($this->marques->removeElement($marque)) {
             // set the owning side to null (unless already changed)
-            if ($marque->getArticlesImages() === $this) {
-                $marque->setArticlesImages(null);
+            if ($marque->getArticlesMarque() === $this) {
+                $marque->setArticlesMarque(null);
             }
         }
 
@@ -234,4 +245,67 @@ class Articles
 
         return $this;
     }
+
+
+
+
+    /** 
+     * @return Collection<int, ArticlesImages>
+     */
+    public function getArticlesImages(): Collection
+    {
+        return $this->articlesImages;
+    }
+
+    public function addArticlesImage(ArticlesImages $articlesImage): self
+    {
+        if (!$this->articlesImages->contains($articlesImage)) {
+            $this->articlesImages[] = $articlesImage;
+            $articlesImage->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticlesImage(ArticlesImages $articlesImage): self
+    {
+        if ($this->articlesImages->removeElement($articlesImage)) {
+            // set the owning side to null (unless already changed)
+            if ($articlesImage->getArticle() === $this) {
+                $articlesImage->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    // /**
+    //  * @return Collection<int, ArticlesImages>
+    //  */
+    // public function getArticlesImages(): Collection
+    // {
+    //     return $this->articlesImg;
+    // }
+
+    // public function addArticlesImage(ArticlesImages $articlesImg): self
+    // {
+    //     if (!$this->articlesImg->contains($articlesImg)) {
+    //         $this->articlesImg->add($articlesImg);
+    //         $articlesImg->setArticlesImg($this);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function removeArticlesImage(ArticlesImages $articlesImg): self
+    // {
+    //     if ($this->articlesImg->removeElement($articlesImg)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($articlesImg->getArticlesImg() === $this) {
+    //             $articlesImg->setArticlesImg(null);
+    //         }
+    //     }
+
+    //     return $this;
+    // }
 }

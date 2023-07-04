@@ -20,7 +20,7 @@ class Marque
     private ?string $code = null;
 
     #[ORM\ManyToOne(inversedBy: 'marques')]
-    private ?Articles $articlesImages = null;
+    private ?Articles $articlesMarque = null;
 
     public function getId(): ?int
     {
@@ -51,14 +51,14 @@ class Marque
         return $this;
     }
 
-    public function getArticlesImages(): ?Articles
+    public function getArticlesMarque(): ?Articles
     {
-        return $this->articlesImages;
+        return $this->articlesMarque;
     }
 
-    public function setArticlesImages(?Articles $articlesImages): static
+    public function setArticlesMarque(?Articles $articlesMarque): static
     {
-        $this->articlesImages = $articlesImages;
+        $this->articlesMarque = $articlesMarque;
 
         return $this;
     }

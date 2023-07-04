@@ -3,12 +3,24 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-<endblock>
+    <main class="container">
+        <section class="row">
+            <div class="col-12">
+                <h1>Site e-commerce</h1>
+                <p>
+                    Bienvenue sur notre site
+                </p>
+            </div>
+            {% for type in types %}
+                <div class="col-12">
+                    {{ type.nom }}
+                </div>
+            {% endfor %}
 
-<div class="example-wrapper">
-    <h1>
-    Sites e-commerce
-    </h1>
-   <p>Bienvenue sur notre site</p>
-</div>
+            <div class="col-12">
+                {{ dump() }}
+            </div>
+        </section>
+    </main>
 {% endblock %}
+
