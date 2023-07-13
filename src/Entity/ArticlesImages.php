@@ -112,6 +112,11 @@ class ArticlesImages
         return $this;
     }
 
+//     public function getFileName(): string
+// {
+//     return $this->fileName; // Remplacez 'fileName' par le nom du champ contenant le nom de fichier de l'image
+// }
+
     public function removeArticlesImage(ArticlesImages $articlesImage): self
     {
         if ($this->articlesImages->removeElement($articlesImage)) {

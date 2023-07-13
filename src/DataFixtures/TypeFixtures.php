@@ -21,6 +21,8 @@ class TypeFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
+
+        $types = [];
         $type = $this->createType('Ordinateur', 'informatique', 2, null, $manager);
 
 
@@ -35,6 +37,8 @@ class TypeFixtures extends Fixture implements DependentFixtureInterface
 
         // Enregistrez le type dans les références
         //$this->addReference('typ-' . $this->counter, $type);
+
+        $types[] = $type;
 
         $manager->persist($type);
         $manager->flush();

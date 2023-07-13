@@ -21,6 +21,10 @@ class Type
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
+
+    #[ORM\Column()]
+    private ?int $typeCommande = null;
+
     #[ORM\Column]
     private ?bool $valid = null;
 
@@ -49,6 +53,16 @@ class Type
     {
         $this->nom = $nom;
 
+        return $this;
+    }
+    public function gettypeCommande(): ?int
+    {
+        return $this->typeCommande;
+    }
+
+    public function settypeCommande(int $typeCommande): self
+    {
+        $this->typeCommande = $typeCommande;
         return $this;
     }
 

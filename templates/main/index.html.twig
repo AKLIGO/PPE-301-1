@@ -5,19 +5,27 @@
 {% block body %}
     <main class="container">
         <section class="row">
-            <div class="col-12">
+        
                 <h1>Site e-commerce</h1>
                 <p>
                     Bienvenue sur notre site
                 </p>
             </div>
             {% for type in types %}
-                <div class="col-12">
-                    {{ type.nom }}
+                <div class="col-4">
+                    <div class="card mb-4" style="width: 18rem;">
+              
+                    {# <img src="..." class="card-img-top" alt="...">  #}
+                    <div class="card-body">
+                         <h3 class="card-title">{{ type.nom }}</h3>
+                         <p class="card-text"></p>
+                         <a href="{{path('app_type_list', {slug: type.slug}) }}" class="btn btn-primary">Voir les produits</a>
+                    </div>
                 </div>
+
             {% endfor %}
 
-            <div class="col-12">
+          
                 {{ dump() }}
             </div>
         </section>

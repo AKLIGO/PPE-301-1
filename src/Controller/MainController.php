@@ -16,7 +16,8 @@ class MainController extends AbstractController
     public function index(TypeRepository $typeRepository, RepositoryCategorieRepository $categorieRepository): Response
     {
         return $this->render('main/index.html.twig', [
-            'types' => $typeRepository->findBy([])
+            'types' => $typeRepository->findBy([]),
+            'categorie' => $categorieRepository->findBy([])
 
 
         ]);

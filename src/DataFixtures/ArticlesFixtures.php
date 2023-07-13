@@ -30,7 +30,9 @@ class ArticlesFixtures extends Fixture  implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
+        $articles = [];
         for ($i = 1; $i <= 10; $i++) {
+
             $article = new Articles();
             $article->setNom(Lorem::getRandomProductName());
             $article->setDescription(Lorem::getRandomDescription());
@@ -47,6 +49,7 @@ class ArticlesFixtures extends Fixture  implements DependentFixtureInterface
             $article->setType($type);
             // Set other properties and persist the object
             // ...
+            $articles[] = $article;
 
             $manager->persist($article);
         }
