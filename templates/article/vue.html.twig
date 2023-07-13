@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+<block stylesheet>
+<endblock>
+<h2>Le formulaire</h2>
+<div class="example-wrapper">
+    {{form_start(form)}}
+    {{form_row(form.nom)}}
+    {{form_row(form.description)}}
+    {{form_row(form.prix)}}
+    {{form_row(form.stock)}}
+    {{form_row(form.creat_at)}}
+    {{form_row(form.valid)}}
+    {{form_row(form.Type)}}
+   {{form_row(form.articlesImage)}}
+
+    <button class="btn btn-success btn-rounded"> Enregistrer </button>
+    {{form_end(form)}}
+ 
+</div>
+{% endblock %}

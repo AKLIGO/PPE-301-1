@@ -1,0 +1,39 @@
+{% extends 'Base.html.twig' %}
+{% block title  %} Liste {% endblock %}
+
+{% block body %}
+
+    <h2> Liste des articles <h2>
+
+
+    <pre>
+        {{ dump() }}
+    </pre>
+<section class="row">
+    <div class="col-12">
+        <h3>Liste des articles du type {{ type.nom }}</h3>
+    </div>
+    {# {% for article in articles %}
+        <div class="col-3">
+            <article class="card">
+                <div class="card-body">
+                    <h2 class="card-title">{{ article.nom }}</h2>
+                </div>
+            </article>
+        </div> 
+         {% if(articles.count>0) %}
+    {% endfor %}#}
+   
+    {% for Articles in articles %}
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">{{ Article.nom }}</h2>
+                </div>
+             </div>
+         </div>
+    {% endfor %}
+    
+</section>
+
+{% endblock %}

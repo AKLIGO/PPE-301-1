@@ -1,0 +1,19 @@
+controllers:
+    resource: ../src/Controller/
+    type: attribute
+
+main:
+    path: /
+    controller: App\Controller\MainController::index
+
+app_type_:
+    path: /type
+    controller: App\Controller\TypeController::list
+
+
+app_article_create:
+    path: /Article/create
+    controller: App\Controller\ArticleController::create
+    methods: [GET, POST]
+
+
