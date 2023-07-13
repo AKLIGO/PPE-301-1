@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\Trait\SlugTrait;
-
 use App\Repository\TypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,23 +10,15 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: TypeRepository::class)]
 class Type
 {
-    use SlugTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-
-    #[ORM\Column()]
-    private ?int $typeCommande = null;
-
-    #[ORM\Column]
-    private ?bool $valid = null;
-
-    #[ORM\ManyToOne(inversedBy: 'types')]
+    #[ORM\ManyToOne(inversedBy: 'types', targetEntity: 'Categorie')]
     private ?Categorie $categorie = null;
 
     #[ORM\OneToMany(mappedBy: 'type', targetEntity: Articles::class)]
@@ -52,28 +42,6 @@ class Type
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-    public function gettypeCommande(): ?int
-    {
-        return $this->typeCommande;
-    }
-
-    public function settypeCommande(int $typeCommande): self
-    {
-        $this->typeCommande = $typeCommande;
-        return $this;
-    }
-
-    public function isValid(): ?bool
-    {
-        return $this->valid;
-    }
-
-    public function setValid(bool $valid): static
-    {
-        $this->valid = $valid;
 
         return $this;
     }

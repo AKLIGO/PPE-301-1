@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-#use App\Doctrine\Types\DateTimeImmmuatableType;
-use App\Entity\Trait\SlugTrait;
 use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,17 +10,15 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
 class Categorie
 {
-
-    use SlugTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 45)]
+    #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: type::class)]
+    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Type::class)]
     private Collection $types;
 
     public function __construct()
@@ -48,14 +44,14 @@ class Categorie
     }
 
     /**
-     * @return Collection<int, type>
+     * @return Collection<int, Type>
      */
     public function getTypes(): Collection
     {
         return $this->types;
     }
 
-    public function addType(type $type): static
+    public function addType(Type $type): static
     {
         if (!$this->types->contains($type)) {
             $this->types->add($type);
@@ -65,7 +61,7 @@ class Categorie
         return $this;
     }
 
-    public function removeType(type $type): static
+    public function removeType(Type $type): static
     {
         if ($this->types->removeElement($type)) {
             // set the owning side to null (unless already changed)

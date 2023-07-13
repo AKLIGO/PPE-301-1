@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-
 #[ORM\Entity(repositoryClass: CouponsRepository::class)]
 class Coupons
 {
@@ -17,34 +16,36 @@ class Coupons
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 16, unique: True)]
+    #[ORM\Column(length: 255)]
     private ?string $code = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?float $remise = null;
-
-    #[ORM\Column]
-    private ?int $max_usage = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private ?\DateTimeInterface $dateValidation = null;
+    private ?int $valeur = null;
 
     #[ORM\Column]
     private ?bool $statut = null;
 
-    #[ORM\ManyToOne(inversedBy: 'coupons')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?CoupnsTypes $coupons_types = null;
+    #[ORM\Column]
+    private ?int $max_usage = null;
 
-    #[ORM\OneToMany(mappedBy: 'coupns', targetEntity: Commandes::class)]
-    private Collection $commandes;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date_create = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date_expiration = null;
+
+    #[ORM\ManyToOne(inversedBy: 'coupons')]
+    private ?CouponsTypes $couponsType = null;
+
+    #[ORM\OneToMany(mappedBy: 'coupons', targetEntity: CouponsCommandes::class)]
+    private Collection $couponsCommandes;
 
     public function __construct()
     {
-        $this->commandes = new ArrayCollection();
+        $this->couponsCommandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,38 +77,14 @@ class Coupons
         return $this;
     }
 
-    public function getRemise(): ?float
+    public function getValeur(): ?int
     {
-        return $this->remise;
+        return $this->valeur;
     }
 
-    public function setRemise(float $remise): static
+    public function setValeur(int $valeur): static
     {
-        $this->remise = $remise;
-
-        return $this;
-    }
-
-    public function getMaxUsage(): ?int
-    {
-        return $this->max_usage;
-    }
-
-    public function setMaxUsage(int $max_usage): static
-    {
-        $this->max_usage = $max_usage;
-
-        return $this;
-    }
-
-    public function getDateValidation(): ?\DateTimeInterface
-    {
-        return $this->dateValidation;
-    }
-
-    public function setDateValidation(\DateTimeInterface $dateValidation): static
-    {
-        $this->dateValidation = $dateValidation;
+        $this->valeur = $valeur;
 
         return $this;
     }
@@ -124,42 +101,78 @@ class Coupons
         return $this;
     }
 
-    public function getCouponsTypes(): ?CoupnsTypes
+    public function getMaxUsage(): ?int
     {
-        return $this->coupons_types;
+        return $this->max_usage;
     }
 
-    public function setCouponsTypes(?CoupnsTypes $coupons_types): static
+    public function setMaxUsage(int $max_usage): static
     {
-        $this->coupons_types = $coupons_types;
+        $this->max_usage = $max_usage;
+
+        return $this;
+    }
+
+    public function getDateCreate(): ?\DateTimeInterface
+    {
+        return $this->date_create;
+    }
+
+    public function setDateCreate(\DateTimeInterface $date_create): static
+    {
+        $this->date_create = $date_create;
+
+        return $this;
+    }
+
+    public function getDateExpiration(): ?\DateTimeInterface
+    {
+        return $this->date_expiration;
+    }
+
+    public function setDateExpiration(\DateTimeInterface $date_expiration): static
+    {
+        $this->date_expiration = $date_expiration;
+
+        return $this;
+    }
+
+    public function getCouponsType(): ?CouponsTypes
+    {
+        return $this->couponsType;
+    }
+
+    public function setCouponsType(?CouponsTypes $couponsType): static
+    {
+        $this->couponsType = $couponsType;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Commandes>
+     * @return Collection<int, CouponsCommandes>
      */
-    public function getCommandes(): Collection
+    public function getCouponsCommandes(): Collection
     {
-        return $this->commandes;
+        return $this->couponsCommandes;
     }
 
-    public function addCommande(Commandes $commande): static
+    public function addCouponsCommande(CouponsCommandes $couponsCommande): static
     {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes->add($commande);
-            $commande->setCoupns($this);
+        if (!$this->couponsCommandes->contains($couponsCommande)) {
+            $this->couponsCommandes->add($couponsCommande);
+            $couponsCommande->setCoupons($this);
         }
 
         return $this;
     }
 
-    public function removeCommande(Commandes $commande): static
+    public function removeCouponsCommande(CouponsCommandes $couponsCommande): static
     {
-        if ($this->commandes->removeElement($commande)) {
+        if ($this->couponsCommandes->removeElement($couponsCommande)) {
             // set the owning side to null (unless already changed)
-            if ($commande->getCoupns() === $this) {
-                $commande->setCoupns(null);
+            if ($couponsCommande->getCoupons() === $this) {
+                $couponsCommande->setCoupons(null);
             }
         }
 

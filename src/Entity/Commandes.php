@@ -5,8 +5,8 @@ namespace App\Entity;
 use App\Repository\CommandesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
 
 #[ORM\Entity(repositoryClass: CommandesRepository::class)]
 class Commandes
@@ -16,30 +16,52 @@ class Commandes
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 231, unique: True)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date_creat = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $reference = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $creat_at = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date_livraison = null;
 
-    #[ORM\ManyToOne(inversedBy: 'commandes')]
-    private ?Coupons $coupns = null;
+    #[ORM\OneToMany(mappedBy: 'commandes', targetEntity: CouponsCommandes::class)]
+    private Collection $couponsCommandes;
 
-    #[ORM\ManyToOne(inversedBy: 'commandes')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Users $users = null;
+    #[ORM\OneToMany(mappedBy: 'commandes', targetEntity: DetailsCommandes::class)]
+    private Collection $detailsCommandes;
 
-    #[ORM\OneToMany(mappedBy: 'commandes', targetEntity: DetaileCommandes::class)]
-    private Collection $detaileCommandes;
+    #[ORM\OneToMany(mappedBy: 'commandes', targetEntity: CommandUsers::class)]
+    private Collection $commandUsers;
 
     public function __construct()
     {
-        $this->detaileCommandes = new ArrayCollection();
+        $this->couponsCommandes = new ArrayCollection();
+        $this->detailsCommandes = new ArrayCollection();
+        $this->commandUsers = new ArrayCollection();
     }
+
+
+
+
+
+
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getDateCreat(): ?\DateTimeInterface
+    {
+        return $this->date_creat;
+    }
+
+    public function setDateCreat(\DateTimeInterface $date_creat): static
+    {
+        $this->date_creat = $date_creat;
+
+        return $this;
     }
 
     public function getReference(): ?string
@@ -54,66 +76,102 @@ class Commandes
         return $this;
     }
 
-    public function getCreatAt(): ?\DateTimeImmutable
+    public function getDateLivraison(): ?\DateTimeInterface
     {
-        return $this->creat_at;
+        return $this->date_livraison;
     }
 
-    public function setCreatAt(\DateTimeImmutable $creat_at): static
+    public function setDateLivraison(\DateTimeInterface $date_livraison): static
     {
-        $this->creat_at = $creat_at;
-
-        return $this;
-    }
-
-    public function getCoupns(): ?Coupons
-    {
-        return $this->coupns;
-    }
-
-    public function setCoupns(?Coupons $coupns): static
-    {
-        $this->coupns = $coupns;
-
-        return $this;
-    }
-
-    public function getUsers(): ?Users
-    {
-        return $this->users;
-    }
-
-    public function setUsers(?Users $users): static
-    {
-        $this->users = $users;
+        $this->date_livraison = $date_livraison;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, DetaileCommandes>
+     * @return Collection<int, CouponsCommandes>
      */
-    public function getDetaileCommandes(): Collection
+    public function getCouponsCommandes(): Collection
     {
-        return $this->detaileCommandes;
+        return $this->couponsCommandes;
     }
 
-    public function addDetaileCommande(DetaileCommandes $detaileCommande): static
+    public function addCouponsCommande(CouponsCommandes $couponsCommande): static
     {
-        if (!$this->detaileCommandes->contains($detaileCommande)) {
-            $this->detaileCommandes->add($detaileCommande);
-            $detaileCommande->setCommandes($this);
+        if (!$this->couponsCommandes->contains($couponsCommande)) {
+            $this->couponsCommandes->add($couponsCommande);
+            $couponsCommande->setCommandes($this);
         }
 
         return $this;
     }
 
-    public function removeDetaileCommande(DetaileCommandes $detaileCommande): static
+    public function removeCouponsCommande(CouponsCommandes $couponsCommande): static
     {
-        if ($this->detaileCommandes->removeElement($detaileCommande)) {
+        if ($this->couponsCommandes->removeElement($couponsCommande)) {
             // set the owning side to null (unless already changed)
-            if ($detaileCommande->getCommandes() === $this) {
-                $detaileCommande->setCommandes(null);
+            if ($couponsCommande->getCommandes() === $this) {
+                $couponsCommande->setCommandes(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DetailsCommandes>
+     */
+    public function getDetailsCommandes(): Collection
+    {
+        return $this->detailsCommandes;
+    }
+
+    public function addDetailsCommande(DetailsCommandes $detailsCommande): static
+    {
+        if (!$this->detailsCommandes->contains($detailsCommande)) {
+            $this->detailsCommandes->add($detailsCommande);
+            $detailsCommande->setCommandes($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDetailsCommande(DetailsCommandes $detailsCommande): static
+    {
+        if ($this->detailsCommandes->removeElement($detailsCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($detailsCommande->getCommandes() === $this) {
+                $detailsCommande->setCommandes(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CommandUsers>
+     */
+    public function getCommandUsers(): Collection
+    {
+        return $this->commandUsers;
+    }
+
+    public function addCommandUser(CommandUsers $commandUser): static
+    {
+        if (!$this->commandUsers->contains($commandUser)) {
+            $this->commandUsers->add($commandUser);
+            $commandUser->setCommandes($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommandUser(CommandUsers $commandUser): static
+    {
+        if ($this->commandUsers->removeElement($commandUser)) {
+            // set the owning side to null (unless already changed)
+            if ($commandUser->getCommandes() === $this) {
+                $commandUser->setCommandes(null);
             }
         }
 

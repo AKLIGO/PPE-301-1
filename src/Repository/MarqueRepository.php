@@ -21,24 +21,6 @@ class MarqueRepository extends ServiceEntityRepository
         parent::__construct($registry, Marque::class);
     }
 
-    public function save(Marque $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(Marque $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
 //    /**
 //     * @return Marque[] Returns an array of Marque objects
 //     */

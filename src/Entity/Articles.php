@@ -2,70 +2,59 @@
 
 namespace App\Entity;
 
-use App\Entity\Trait\SlugTrait;
 use App\Repository\ArticlesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Internal\SQLResultCasing;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 class Articles
 {
-    use SlugTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $prix = null;
+    private ?float $prix_unitaire = null;
 
     #[ORM\Column]
-    private ?int $stock = null;
+    private ?float $stock = null;
 
-    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private ?\DateTimeImmutable $creat_at = null;
-
-    #[ORM\ManyToOne(inversedBy: 'articles')]
-    private ?Type $Type = null;
+    #[ORM\Column(length: 255)]
+    private ?string $couleur = null;
 
     #[ORM\Column]
     private ?bool $valid = null;
 
-    // #[ORM\OneToMany(mappedBy: 'articlesImg', targetEntity: ArticlesImages::class)]
-    // private Collection $articlesImages;
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    private ?Type $type = null;
 
-    #[ORM\OneToMany(mappedBy: 'articles', targetEntity: Marque::class)]
-    private Collection $marques;
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    private ?Marque $marque = null;
 
-    #[ORM\OneToMany(mappedBy: 'articles', targetEntity: DetaileCommandes::class)]
-    private Collection $detaileCommandes;
+    #[ORM\OneToMany(mappedBy: 'articles', targetEntity: ArticleImage::class)]
+    private Collection $articleImages;
 
-
-    #[ORM\ManyToOne(targetEntity: ArticlesImages::class, inversedBy: "articles")]
-
-    private Collection $articlesImages;
-
-
+    #[ORM\OneToMany(mappedBy: 'articles', targetEntity: DetailsCommandes::class)]
+    private Collection $detailsCommandes;
 
 
 
     public function __construct()
     {
-        //$this->articlesImages = new ArrayCollection();
-        $this->marques = new ArrayCollection();
-        $this->detaileCommandes = new ArrayCollection();
-        $this->articlesImages = new ArrayCollection();
-        // $this->articlesImg = new ArrayCollection();
+        $this->articleImages = new ArrayCollection();
+        $this->detailsCommandes = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -96,50 +85,38 @@ class Articles
         return $this;
     }
 
-    public function getPrix(): ?int
+    public function getPrixUnitaire(): ?float
     {
-        return $this->prix;
+        return $this->prix_unitaire;
     }
 
-    public function setPrix(int $prix): static
+    public function setPrixUnitaire(float $prix_unitaire): static
     {
-        $this->prix = $prix;
+        $this->prix_unitaire = $prix_unitaire;
 
         return $this;
     }
 
-    public function getStock(): ?int
+    public function getStock(): ?float
     {
         return $this->stock;
     }
 
-    public function setStock(int $stock): static
+    public function setStock(float $stock): static
     {
         $this->stock = $stock;
 
         return $this;
     }
 
-    public function getCreatAt(): ?\DateTimeImmutable
+    public function getCouleur(): ?string
     {
-        return $this->creat_at;
+        return $this->couleur;
     }
 
-    public function setCreatAt(\DateTimeImmutable $creat_at): static
+    public function setCouleur(string $couleur): static
     {
-        $this->creat_at = $creat_at;
-
-        return $this;
-    }
-
-    public function getType(): ?Type
-    {
-        return $this->Type;
-    }
-
-    public function setType(?Type $Type): static
-    {
-        $this->Type = $Type;
+        $this->couleur = $couleur;
 
         return $this;
     }
@@ -156,60 +133,54 @@ class Articles
         return $this;
     }
 
-    // /**
-    //  * @return Collection<int, ArticlesImages>
-    //  */
-    // public function getArticlesImages(): Collection
-    // {
-    //     return $this->articlesImages;
-    // }
-
-    // public function addArticlesImage(ArticlesImages $articlesImage): static
-    // {
-    //     if (!$this->articlesImages->contains($articlesImage)) {
-    //         $this->articlesImages->add($articlesImage);
-    //         $articlesImage->setArticlesImg($this);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function removeArticlesImage(ArticlesImages $articlesImage): static
-    // {
-    //     if ($this->articlesImages->removeElement($articlesImage)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($articlesImage->getArticlesImg() === $this) {
-    //             $articlesImage->setArticlesImg(null);
-    //         }
-    //     }
-
-    //     return $this;
-    // }
-
-    /**
-     * @return Collection<int, Marque>
-     */
-    public function getMarques(): Collection
+    public function getType(): ?Type
     {
-        return $this->marques;
+        return $this->type;
     }
 
-    public function addMarque(Marque $marque): static
+    public function setType(?Type $type): static
     {
-        if (!$this->marques->contains($marque)) {
-            $this->marques->add($marque);
-            $marque->setArticlesMarque($this);
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getMarque(): ?Marque
+    {
+        return $this->marque;
+    }
+
+    public function setMarque(?Marque $marque): static
+    {
+        $this->marque = $marque;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ArticleImage>
+     */
+    public function getArticleImages(): Collection
+    {
+        return $this->articleImages;
+    }
+
+    public function addArticleImage(ArticleImage $articleImage): static
+    {
+        if (!$this->articleImages->contains($articleImage)) {
+            $this->articleImages->add($articleImage);
+            $articleImage->setArticles($this);
         }
 
         return $this;
     }
 
-    public function removeMarque(Marque $marque): static
+    public function removeArticleImage(ArticleImage $articleImage): static
     {
-        if ($this->marques->removeElement($marque)) {
+        if ($this->articleImages->removeElement($articleImage)) {
             // set the owning side to null (unless already changed)
-            if ($marque->getArticlesMarque() === $this) {
-                $marque->setArticlesMarque(null);
+            if ($articleImage->getArticles() === $this) {
+                $articleImage->setArticles(null);
             }
         }
 
@@ -217,95 +188,32 @@ class Articles
     }
 
     /**
-     * @return Collection<int, DetaileCommandes>
+     * @return Collection<int, DetailsCommandes>
      */
-    public function getDetaileCommandes(): Collection
+    public function getDetailsCommandes(): Collection
     {
-        return $this->detaileCommandes;
+        return $this->detailsCommandes;
     }
 
-    public function addDetaileCommande(DetaileCommandes $detaileCommande): static
+    public function addDetailsCommande(DetailsCommandes $detailsCommande): static
     {
-        if (!$this->detaileCommandes->contains($detaileCommande)) {
-            $this->detaileCommandes->add($detaileCommande);
-            $detaileCommande->setArticles($this);
+        if (!$this->detailsCommandes->contains($detailsCommande)) {
+            $this->detailsCommandes->add($detailsCommande);
+            $detailsCommande->setArticles($this);
         }
 
         return $this;
     }
 
-    public function removeDetaileCommande(DetaileCommandes $detaileCommande): static
+    public function removeDetailsCommande(DetailsCommandes $detailsCommande): static
     {
-        if ($this->detaileCommandes->removeElement($detaileCommande)) {
+        if ($this->detailsCommandes->removeElement($detailsCommande)) {
             // set the owning side to null (unless already changed)
-            if ($detaileCommande->getArticles() === $this) {
-                $detaileCommande->setArticles(null);
+            if ($detailsCommande->getArticles() === $this) {
+                $detailsCommande->setArticles(null);
             }
         }
 
         return $this;
     }
-
-
-
-
-    /** 
-     * @return Collection<int, ArticlesImages>
-     */
-    public function getArticlesImages(): Collection
-    {
-        return $this->articlesImages;
-    }
-
-    public function addArticlesImage(ArticlesImages $articlesImage): self
-    {
-        if (!$this->articlesImages->contains($articlesImage)) {
-            $this->articlesImages[] = $articlesImage;
-            $articlesImage->setArticle($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticlesImage(ArticlesImages $articlesImage): self
-    {
-        if ($this->articlesImages->removeElement($articlesImage)) {
-            // set the owning side to null (unless already changed)
-            if ($articlesImage->getArticle() === $this) {
-                $articlesImage->setArticle(null);
-            }
-        }
-
-        return $this;
-    }
-
-    // /**
-    //  * @return Collection<int, ArticlesImages>
-    //  */
-    // public function getArticlesImages(): Collection
-    // {
-    //     return $this->articlesImg;
-    // }
-
-    // public function addArticlesImage(ArticlesImages $articlesImg): self
-    // {
-    //     if (!$this->articlesImg->contains($articlesImg)) {
-    //         $this->articlesImg->add($articlesImg);
-    //         $articlesImg->setArticlesImg($this);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function removeArticlesImage(ArticlesImages $articlesImg): self
-    // {
-    //     if ($this->articlesImg->removeElement($articlesImg)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($articlesImg->getArticlesImg() === $this) {
-    //             $articlesImg->setArticlesImg(null);
-    //         }
-    //     }
-
-    //     return $this;
-    // }
 }

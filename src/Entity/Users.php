@@ -46,13 +46,16 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $creat_at = null;
 
-    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Commandes::class)]
-    private Collection $commandes;
+    #[ORM\OneToMany(mappedBy: 'users', targetEntity: CommandUsers::class)]
+    private Collection $commandUsers;
+
+
 
     public function __construct()
     {
-        $this->commandes = new ArrayCollection();
+
         $this->creat_at = new \DateTimeImmutable();
+        $this->commandUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -186,29 +189,29 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Commandes>
+     * @return Collection<int, CommandUsers>
      */
-    public function getCommandes(): Collection
+    public function getCommandUsers(): Collection
     {
-        return $this->commandes;
+        return $this->commandUsers;
     }
 
-    public function addCommande(Commandes $commande): static
+    public function addCommandUser(CommandUsers $commandUser): static
     {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes->add($commande);
-            $commande->setUsers($this);
+        if (!$this->commandUsers->contains($commandUser)) {
+            $this->commandUsers->add($commandUser);
+            $commandUser->setUsers($this);
         }
 
         return $this;
     }
 
-    public function removeCommande(Commandes $commande): static
+    public function removeCommandUser(CommandUsers $commandUser): static
     {
-        if ($this->commandes->removeElement($commande)) {
+        if ($this->commandUsers->removeElement($commandUser)) {
             // set the owning side to null (unless already changed)
-            if ($commande->getUsers() === $this) {
-                $commande->setUsers(null);
+            if ($commandUser->getUsers() === $this) {
+                $commandUser->setUsers(null);
             }
         }
 

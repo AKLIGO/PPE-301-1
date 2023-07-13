@@ -2,24 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\CoupnsTypesRepository;
+use App\Repository\CouponsTypesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-
-#[ORM\Entity(repositoryClass: CoupnsTypesRepository::class)]
-class CoupnsTypes
+#[ORM\Entity(repositoryClass: CouponsTypesRepository::class)]
+class CouponsTypes
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\OneToMany(mappedBy: 'coupons_types', targetEntity: Coupons::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'couponsType', targetEntity: Coupons::class)]
     private Collection $coupons;
 
     public function __construct()
@@ -56,7 +55,7 @@ class CoupnsTypes
     {
         if (!$this->coupons->contains($coupon)) {
             $this->coupons->add($coupon);
-            $coupon->setCouponsTypes($this);
+            $coupon->setCouponsType($this);
         }
 
         return $this;
@@ -66,8 +65,8 @@ class CoupnsTypes
     {
         if ($this->coupons->removeElement($coupon)) {
             // set the owning side to null (unless already changed)
-            if ($coupon->getCouponsTypes() === $this) {
-                $coupon->setCouponsTypes(null);
+            if ($coupon->getCouponsType() === $this) {
+                $coupon->setCouponsType(null);
             }
         }
 
