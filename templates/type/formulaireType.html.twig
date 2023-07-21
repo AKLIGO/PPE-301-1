@@ -1,0 +1,11 @@
+{% block content %}
+    <h1>Créer une nouvelle type</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.nom) }}
+  
+    {{ form_row(form.categorie) }}
+
+    <input type="submit" value="Enregistrer" class="btn btn-secondary">
+    {{ form_end(form) }}
+{%  endblock %}

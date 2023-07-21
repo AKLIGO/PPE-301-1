@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\ArticlesRepository;
 use App\Controller\Type;
-
+use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ArticleFormType;
 
 
@@ -35,7 +35,7 @@ class ArticleController extends AbstractController
 
     #[route('create', name: 'app_creat')]
 
-    public function create(Request $request, ArticlesRepository $articlesRepository)
+    public function create(Request $request, ArticlesRepository $articlesRepository, EntityManagerInterface $entityManager)
     {
 
         //$entityManager = $this->getDoctrine()->getManager();
@@ -48,13 +48,16 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $articlesRepository->save($article, true);
+            // $articlesRepository->save($article, true);
+            $article = $form->getData();
+            $entityManager->persist($article);
+            $entityManager->flush();
 
-            return $this->redirectToRoute("app_read");
+            return new Response('votre article est belle bien creer avec success');
         }
         $formView = $form->createView();
         return $this->render('article/vue.html.twig', array(
-            'form' => $formView
+            'form' => $form->createView()
         ));
     }
 

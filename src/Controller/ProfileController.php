@@ -16,12 +16,4 @@ class ProfileController extends AbstractController
             'controller_name' => 'ProfileController',
         ]);
     }
-
-    #[Route('/commandes', name: 'commandes')]
-    public function commandes(): Response
-    {
-        return $this->render('profile/index.html.twig', [
-            'controller_name' => 'ProfileController',
-        ]);
-    }
 }

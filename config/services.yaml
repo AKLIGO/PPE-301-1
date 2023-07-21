@@ -11,10 +11,10 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
     
-    App\Entity\Type:
-    App\Controller\TypeController:
-        arguments:
-            $managerRegistry: '@doctrine'
+    # App\Entity\Type:
+    # App\Controller\TypeController:
+    #     arguments:
+    #         $managerRegistry: '@doctrine'
 
     doctrine.orm.entity_manager:
          class: Doctrine\ORM\EntityManagerInterface

@@ -6,10 +6,27 @@ main:
     path: /
     controller: App\Controller\MainController::index
 
-app_type_:
-    path: /type
-    controller: App\Controller\TypeController::list
+# app_createCategorie:
+#     path: /categorie/createCategorie
+#     controller: App\Controller\CategorieController::createCategorie
 
+app_createCategorie:
+    path: '/categorie/createCategorie'
+    controller: 'App\Controller\CategorieController::createCategorie'
+
+app_createType:
+    path: /type
+    controller: App\Controller\TypeController::createType
+    # methods: GET
+
+app_createMarque:
+    path: '/marque/createMarque'
+    controller: 'App\Controller\MarqueController::createMarque'
+
+
+# app_createType:
+#     path: '/type/createType'
+#     controller: 'App\Controller\TypeController::createType'
 
 app_article_create:
     path: /Article/create
