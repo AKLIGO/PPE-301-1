@@ -34,6 +34,9 @@ class Articles
     #[ORM\Column]
     private ?bool $valid = null;
 
+    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private \DateTimeImmutable $creat_at;
+
     #[ORM\ManyToOne(inversedBy: 'articles')]
     private ?Type $type = null;
 
@@ -52,6 +55,7 @@ class Articles
     {
         $this->articleImages = new ArrayCollection();
         $this->detailsCommandes = new ArrayCollection();
+        $this->creat_at = new \DateTimeImmutable();
     }
 
 
@@ -93,6 +97,18 @@ class Articles
     public function setPrixUnitaire(float $prix_unitaire): static
     {
         $this->prix_unitaire = $prix_unitaire;
+
+        return $this;
+    }
+
+    public function getCreatAt(): ?\DateTimeImmutable
+    {
+        return $this->creat_at;
+    }
+
+    public function setCreatAt(\DateTimeImmutable $creat_at): static
+    {
+        $this->creat_at = $creat_at;
 
         return $this;
     }
@@ -215,5 +231,10 @@ class Articles
         }
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->nom ?? 'N/A';
+        // Utilisez une propriété appropriée, comme 'nom', comme représentation de chaîne
     }
 }

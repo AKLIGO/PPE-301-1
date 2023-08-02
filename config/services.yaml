@@ -16,6 +16,8 @@ services:
     #     arguments:
     #         $managerRegistry: '@doctrine'
 
+    
+
     doctrine.orm.entity_manager:
          class: Doctrine\ORM\EntityManagerInterface
          factory: ['@doctrine', 'getManager']

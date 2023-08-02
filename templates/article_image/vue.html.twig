@@ -1,0 +1,16 @@
+{# Dans votre template Twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter une image</h1>
+
+<form method="post" action="#" enctype="multipart/form-data">
+    {{ form_start(form) }}
+    {{ form_row(form.articleImage) }}
+    
+    {# {{ form_row(form.createdAt) }} #}
+    {{ form_row(form.articles) }}
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    {{ form_end(form) }}
+    </form>
+{% endblock %}

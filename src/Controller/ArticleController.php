@@ -57,7 +57,9 @@ class ArticleController extends AbstractController
         }
         $formView = $form->createView();
         return $this->render('article/vue.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'article' => $article,
+
         ));
     }
 

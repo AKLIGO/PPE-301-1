@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Votre image est belle et bien créée avec succès</title>
+</head>
+<body>
+    <h1>Votre image est belle et bien créée avec succès</h1>
+
+    {% if articleImage %}
+        <img src="{{ vich_uploader_asset(articleImage, 'articleImage') }}" alt="Image de l'article">
+    {% else %}
+        <p>Pas d'image associée à cet article.</p>
+    {% endif %}
+</body>
+</html>
