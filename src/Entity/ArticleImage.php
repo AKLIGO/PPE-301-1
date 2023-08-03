@@ -36,6 +36,7 @@ class ArticleImage
 
 
     #[ORM\ManyToOne(inversedBy: 'articleImages')]
+    #[ORM\JoinColumn(name: 'articles_id', referencedColumnName: 'id')]
     private ?Articles $articles = null;
 
     public function __construct()

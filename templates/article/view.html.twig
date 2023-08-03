@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block body%}
+<div class="article-card">
+            <h1>{{ VoirArticle.nom }}</h1>
+               
+            {% set firstImage = VoirArticle.getFirstArticleImage() %}
+            {% if firstImage %}
+                <img src="{{ vich_uploader_asset(firstImage, 'articleImage') }}" alt="Image de l'article" class="card-img-top" style="display: inline-block; vertical-align: middle; width: 400px;">
+            {% else %}
+                <p style="display: inline-block; vertical-align: middle;">Cet article n'a pas d'image associée.</p>
+            {% endif %}
+            
+             <p style="display: inline-block; vertical-align: middle;">{{ VoirArticle.description }}</p>
+             <p style="display: inline-block; vertical-align: middle;">Prix: {{VoirArticle.getPrixUnitaire()  }}</p>
+</div>
+
+{% endblock body %}

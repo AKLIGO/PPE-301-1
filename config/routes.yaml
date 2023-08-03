@@ -37,3 +37,15 @@ app_article_create:
 app_read:
     path: /Article/lire
     controller: App\Controller\ArticleController::lire
+
+
+app_delete:
+    path: /delete/{id}
+    controller: App\Controller\ArticleController::delete
+    methods: [GET]
+
+
+app_view:
+    path: /voir/{id}
+    controller: App\Controller\ArticleController::voir
+    methods: [GET]

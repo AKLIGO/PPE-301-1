@@ -74,6 +74,48 @@ class ArticleController extends AbstractController
         ]);
     }
 
+
+
+    #[Route('/delete/{id}', name: 'app_delete')]
+    public function delete(int $id, ArticlesRepository $articlesRepository, EntityManagerInterface $entityManager)
+    {
+        // Charger l'entité Articles à partir de l'ID
+        $article = $articlesRepository->find($id);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Article not found.');
+        }
+
+        // Supprimer l'article de la base de données
+        $entityManager->remove($article);
+        $entityManager->flush();
+
+        // Rediriger vers la liste des articles après la suppression
+        return $this->redirectToRoute('app_read');
+    }
+
+    #[Route('/voir/{id}', name: 'app_view')]
+    public function voir(int $id, ArticlesRepository $articlesRepository,  EntityManagerInterface $entityManager)
+    {
+        $article = $articlesRepository->find($id);
+        if (!$article) {
+            throw $this->createNotFoundException('Article not found.');
+        }
+
+        return $this->render('article/view.html.twig', [
+            'VoirArticle' => $article
+        ]);
+    }
+
+
+
+    // #[Route('/delete{id}', name: 'app_delete')]
+    // public function delete(Articles $articles, ArticlesRepository $articlesRepository)
+    // {
+    //     $articlesRepository->remove($articles, true);
+    //     return $this->redirectToRoute('app_read');
+    // }
+
     // #[Route('/{slug}', name: 'details')]
     // public function details(string $slug): Response
     // {

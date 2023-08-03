@@ -43,7 +43,7 @@ class Articles
     #[ORM\ManyToOne(inversedBy: 'articles')]
     private ?Marque $marque = null;
 
-    #[ORM\OneToMany(mappedBy: 'articles', targetEntity: ArticleImage::class)]
+    #[ORM\OneToMany(mappedBy: 'articles', targetEntity: ArticleImage::class, cascade: ['remove'])]
     private Collection $articleImages;
 
     #[ORM\OneToMany(mappedBy: 'articles', targetEntity: DetailsCommandes::class)]

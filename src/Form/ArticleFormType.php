@@ -33,6 +33,9 @@ class ArticleFormType extends AbstractType
                     'Rouge' => 'rouge',
                     'Vert' => 'vert',
                     'Bleu' => 'bleu',
+                    'Orange' => 'orange',
+                    'Blanche' => 'Blanche',
+                    'Noir' => 'Noir'
                 ],
             ])
             ->add('valid', ChoiceType::class, [

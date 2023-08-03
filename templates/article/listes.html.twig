@@ -3,20 +3,44 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% for art in article %}
-        <div>
-            <h1>{{ art.nom }}</h1>
-            <p>{{ art.description }}</p>
-            <p>Prix: {{ art.getPrixUnitaire()  }}</p>
-            <p>Stock: {{ art.stock }}</p>
-            <p>Couleur: {{ art.couleur }}</p>
 
+            <style>
+        /* styles */
+        .articles-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .article-card {
+            flex: 1 0 18rem;
+            margin: 10px;
+        }
+    </style>
+
+  <div class="articles-container">
+    {% for art in article %}
+        <div class="article-card">
+            <h1>{{ art.nom }}</h1>
+                <div class="card" style="width: 18rem;">
             {% set firstImage = art.getFirstArticleImage() %}
             {% if firstImage %}
-                <img src="{{ vich_uploader_asset(firstImage, 'articleImage') }}" alt="Image de l'article">
+                <img src="{{ vich_uploader_asset(firstImage, 'articleImage') }}" alt="Image de l'article" class="card-img-top" >
             {% else %}
                 <p>Cet article n'a pas d'image associée.</p>
             {% endif %}
+             <div class="card-body">
+             {# <p>{{ art.description }}</p> #}
+             <p>Prix: {{ art.getPrixUnitaire()  }}</p>
+            {# <p>Stock: {{ art.stock }}</p> #}
+            <p>Couleur: {{ art.couleur }}</p>
+             <a class="btn btn-danger btn-sm my-3" href="{{path("app_delete",{"id":art.id }) }}" role="button">Supprimer</a>
+            <a href="{{ path('app_view', {'id':art.id})}}" class="btn btn-primary btn-sm my-3">Voir</a>
         </div>
+        </div>
+        </div>
+            
+
+           
     {% endfor %}
+  </div>
 {% endblock %}
