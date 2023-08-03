@@ -59,6 +59,11 @@ class Articles
     }
 
 
+    public function getFirstArticleImage(): ?ArticleImage
+    {
+        $images = $this->getArticleImages();
+        return $images->first() ?: null;
+    }
 
     public function getId(): ?int
     {

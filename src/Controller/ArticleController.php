@@ -53,7 +53,7 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return new Response('votre article est belle bien creer avec success');
+            return $this->redirectToRoute('app_creatImage');
         }
         $formView = $form->createView();
         return $this->render('article/vue.html.twig', array(

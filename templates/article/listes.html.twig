@@ -1,0 +1,22 @@
+{# templates/article/listes.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for art in article %}
+        <div>
+            <h1>{{ art.nom }}</h1>
+            <p>{{ art.description }}</p>
+            <p>Prix: {{ art.getPrixUnitaire()  }}</p>
+            <p>Stock: {{ art.stock }}</p>
+            <p>Couleur: {{ art.couleur }}</p>
+
+            {% set firstImage = art.getFirstArticleImage() %}
+            {% if firstImage %}
+                <img src="{{ vich_uploader_asset(firstImage, 'articleImage') }}" alt="Image de l'article">
+            {% else %}
+                <p>Cet article n'a pas d'image associée.</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}

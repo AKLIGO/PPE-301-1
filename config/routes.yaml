@@ -34,3 +34,6 @@ app_article_create:
     methods: [GET, POST]
 
 
+app_read:
+    path: /Article/lire
+    controller: App\Controller\ArticleController::lire
