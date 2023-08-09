@@ -2,9 +2,11 @@
 
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{# {% block head %}
+    <!-- Incluez jQuery (assurez-vous de l'ajouter avant ce script) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-            <style>
+    <style>
         /* styles */
         .articles-container {
             display: flex;
@@ -16,6 +18,21 @@
             margin: 10px;
         }
     </style>
+{% endblock %} #}
+{% block body %}
+
+             <style>
+        /* styles */
+        .articles-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .article-card {
+            flex: 1 0 18rem;
+            margin: 10px;
+        }
+    </style> 
 
   <div class="articles-container">
     {% for art in article %}
@@ -30,7 +47,7 @@
             {% endif %}
              <div class="card-body">
              {# <p>{{ art.description }}</p> #}
-             <p>Prix: {{ art.getPrixUnitaire()  }}</p>
+             <p>Prix: {{ art.getPrixUnitaire()  }} $</p>
             {# <p>Stock: {{ art.stock }}</p> #}
             <p>Couleur: {{ art.couleur }}</p>
              <a class="btn btn-danger btn-sm my-3" href="{{path("app_delete",{"id":art.id }) }}" role="button">Supprimer</a>
@@ -43,4 +60,21 @@
            
     {% endfor %}
   </div>
+
+{# //    <script>
+//         $(document).ready(function() {
+//             var images = $(".active-image").siblings("img"); // Récupère toutes les autres images
+//             var currentIndex = 0; // Index de l'image actuellement affichée
+
+//             // Fonction pour passer à l'image suivante
+//             function showNextImage() {
+//                 images.removeClass("active-image"); // Supprime la classe active de toutes les images
+//                 currentIndex = (currentIndex + 1) % images.length; // Passe à l'image suivante
+//                 images.eq(currentIndex).addClass("active-image"); // Ajoute la classe active à la nouvelle image
+//             }
+
+//             // Appelle showNextImage toutes les 3 secondes (ajustez selon vos besoins)
+//             setInterval(showNextImage, 3000);
+//         });
+//     </script> #}
 {% endblock %}

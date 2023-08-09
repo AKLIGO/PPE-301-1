@@ -10,17 +10,31 @@
           <a class="nav-link active" aria-current="page" href="{{ path('app_main') }}">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="{{path('app_read')}}">Liste</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+            Categories
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <ul class="dropdown-menu multi" aria-labelledby="navbarDropdown">
+          <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Tout</a></li>
+            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Alimentaire</a>
+                {# <ul class="dropdown-menu">
+                  <li class="dropdown-menu">
+                    <a href="#">1</a>
+                </li>
+                </ul> #}
+
+                
+            </li>
+
+            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Vestimentaire</a></li>
+            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Agricole</a></li>
+            
+            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Automobiles</a></li>
+            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Another action</a></li>
+            <li class="dropdown-submenu"><hr class="dropdown-divider dropdown-toggle"></li>
+            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Something else here</a></li>
           </ul>
         </li>
         <li class="nav-item">

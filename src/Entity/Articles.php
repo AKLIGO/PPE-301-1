@@ -65,6 +65,21 @@ class Articles
         return $images->first() ?: null;
     }
 
+    public function getOtherArticleImages()
+    {
+        $otherImages = []; // Initialisez un tableau vide pour stocker les autres images
+        $images = $this->getArticleImages();
+
+        foreach ($images as $image) {
+            // Assurez-vous de vérifier que cette image n'est pas la première image
+            if ($image !== $this->getFirstArticleImage()) {
+                $otherImages[] = $image;
+            }
+        }
+
+        return $otherImages;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

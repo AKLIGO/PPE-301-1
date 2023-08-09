@@ -10,8 +10,20 @@
                 <p style="display: inline-block; vertical-align: middle;">Cet article n'a pas d'image associée.</p>
             {% endif %}
             
-             <p style="display: inline-block; vertical-align: middle;">{{ VoirArticle.description }}</p>
-             <p style="display: inline-block; vertical-align: middle;">Prix: {{VoirArticle.getPrixUnitaire()  }}</p>
+             <p style="display: inline-block; vertical-align: middle;">price: {{ VoirArticle.getPrixUnitaire()  }} $</p>
+             <p style="display: inline-block; vertical-align: middle;">Prix: {{VoirArticle.description }}</p>
+
+             {% set otherImages = VoirArticle.getOtherArticleImages() %}
+    {% if otherImages %}
+        <div class="other-images">
+            {# <h2>Autres images:</h2> #}
+            <div class="image-list">
+                {% for image in otherImages %}
+                    <img src="{{ vich_uploader_asset(image, 'articleImage') }}" alt="Autre image de l'article" class="other-image" style="width: 450px;">
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
 </div>
 
 {% endblock body %}
