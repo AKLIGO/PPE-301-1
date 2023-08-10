@@ -1,0 +1,19 @@
+.navbar-image-bg {
+
+    
+    background-image: url(imgdef/imnav.jpeg); 
+    background-size:cover;
+    filter: hue-rotate(240deg);; /* Couleur de superposition avec transparence */
+   background-blend-mode: multiply;
+    background-position: center; 
+}
+.navbar-image-bg .navbar-brand,
+.navbar-image-bg .nav-link {
+  color: black; /* Utiliser une couleur de texte contrastante (blanc) */
+  font-weight: bold;
+   font-size: 28px;
+}
+
+.navbar-image-bg {
+  background-color: beige; /* Couleur de fond beige */
+}

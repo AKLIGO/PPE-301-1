@@ -2,50 +2,128 @@
 
 {% block title %}Accueil{% endblock %}
 
-   
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .bd {
+            height: 100vh;
+            width: 100vw;
+            background-image: url('{{ asset('imgdef/img2.jpg') }}');
+            background-size: cover;
+            
+            position: relative;
+            align-items: center;
+            display:flex;
+            justify-content:center;
+        }
 
 
-{% block body %}
-    <main class="container">
-        <section class="row">
         
-                <h1>Site e-commerce</h1>
-                <h2>
-                    Bienvenue sur notre site
-                </h2>
-            </div>
-            {# {% for type in types %}
-                <div class="col-4">
-                    <div class="card mb-4" style="width: 18rem;">
-              
-                    {# <img src="..." class="card-img-top" alt="...">  #}
-                    {# <div class="card-body">
-                         <h3 class="card-title">{{ type.nom }}</h3>
-                         <p class="card-text"></p>
-                         <a href="{{path('app_type_list', {slug: type.slug}) }}" class="btn btn-primary">Voir les produits</a>
-                    </div>
-                </div> #}
+        .bd .container {
+            /* background-color: blue; */
+            background-color:green;
+           
+            top:0;
+            left:0;
+            align-items: center;
+           
+        }
 
-            {# {% endfor %} #}
+       
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+}
 
-{#           
-                {{ dump() }} #} 
-            </div>
-        </section>
 
-   
+.images{
+    display: flex;
+    animation-duration: 20s;
+    animation-name: mesImages;
+    animation-iteration-count: infinite;
+ }
 
-        </div>
-    </main>
-         <div id="carousel">
-                <div class="images">
-        <img src="{{ asset('imgdef/img6.JPG') }}" alt="Image 1">
-        <img src="{{ asset('imgdef/img1.JPEG') }}" alt="Image 2">
-        <img src="{{ asset('imgdef/img2.jpg') }}" alt="Image 3">
-        {# <img src="{{ asset('imgdef/img3.jpeg') }}" alt="Image 4">
-        <img src="{{ asset('imgdef/img4.jpeg') }}" alt="Image 5"> #}
-        <img src="{{ asset('imgdef/img7.jpeg') }}" alt="Image 6">
-        </div>
-    </div>
+ #carousel {
+    width: 100%;
+    overflow: hidden;
+    border:2px solid black ;
+ }
+
+@keyframes mesImages {
+    0% {
+        transform: translateX(0);
+
+    }
+    25%{
+        transform: translateX(-640px);
+    }
+
+    50%{
+        transform: translateX(-1280px);
+    }
+
+    75%{
+        transform: translateX(-1920px);
+    }
+
+    100%{
+        transform: translateX(0);
+    }
+    
+}
+
+     
+ .navbar-image-bg {
+
+    
+      background-image: url('{{ asset('imgdef/imnav.jpeg') }}'); */
+      background-size: cover;
+      filter: hue-rotate(240deg);; /* Couleur de superposition avec transparence */
+     background-blend-mode: multiply;
+      background-position: center; 
+ }
+ .navbar-image-bg .navbar-brand,
+.navbar-image-bg .nav-link {
+    color: black; /* Utiliser une couleur de texte contrastante (blanc) */
+    font-weight: bold;
+     font-size: 28px;
+}
+
+.navbar-image-bg {
+    background-color: beige; /* Couleur de fond beige */
+}
+
+.struc{
+    height:300px;
+    margin:100px;
+}
+
+.col{
+    height:150px
+}
+    </style>
 {% endblock %}
 
+{% block body %}
+<div class="bd">
+    <main class="container">
+        <section class="row">
+            <center>
+            <h1>Site e-commerce</h1>
+            <h2>Bienvenue sur notre site</h2>
+            <!-- ... Votre contenu ... -->
+            </center>
+        </section>
+    </main>
+</div>
+<div id="carousel">
+    <div class="images">
+        <img src="{{ asset('imgdef/img6.JPG') }}" alt="Image 1" class="imag1">
+        <img src="{{ asset('imgdef/img1.JPEG') }}" alt="Image 2" class="imag2">
+        <img src="{{ asset('imgdef/img2.jpg') }}" alt="Image 3" class="imag3">
+        <img src="{{ asset('imgdef/img7.jpeg') }}" alt="Image 6" class="imag4">
+    </div>
+</div>
+{% endblock %}
