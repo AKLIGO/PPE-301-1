@@ -2,14 +2,17 @@
 
 {% block title %}Accueil{% endblock %}
 
+   
+
+
 {% block body %}
     <main class="container">
         <section class="row">
         
                 <h1>Site e-commerce</h1>
-                <p>
+                <h2>
                     Bienvenue sur notre site
-                </p>
+                </h2>
             </div>
             {# {% for type in types %}
                 <div class="col-4">
@@ -29,6 +32,20 @@
                 {{ dump() }} #} 
             </div>
         </section>
+
+   
+
+        </div>
     </main>
+         <div id="carousel">
+                <div class="images">
+        <img src="{{ asset('imgdef/img6.JPG') }}" alt="Image 1">
+        <img src="{{ asset('imgdef/img1.JPEG') }}" alt="Image 2">
+        <img src="{{ asset('imgdef/img2.jpg') }}" alt="Image 3">
+        {# <img src="{{ asset('imgdef/img3.jpeg') }}" alt="Image 4">
+        <img src="{{ asset('imgdef/img4.jpeg') }}" alt="Image 5"> #}
+        <img src="{{ asset('imgdef/img7.jpeg') }}" alt="Image 6">
+        </div>
+    </div>
 {% endblock %}
 

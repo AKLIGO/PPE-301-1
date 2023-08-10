@@ -1,0 +1,39 @@
+body{
+    background-color: #ddd;
+}
+
+.images{
+    display: flex;
+    animation-duration: 10s;
+    animation-name: mesImages;
+    animation-iteration-count: infinite;
+ }
+
+ #carousel {
+    width: 100%;
+    overflow: auto;
+    border:2px solid black ;
+ }
+
+@keyframes mesImages {
+    0% {
+        transform: translateX(0);
+
+    }
+    25%{
+        transform: translateX(-640px);
+    }
+
+    50%{
+        transform: translateX(-1280px);
+    }
+
+    75%{
+        transform: translateX(-1920px);
+    }
+
+    100%{
+        transform: translateX(0);
+    }
+    
+}

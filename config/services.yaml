@@ -10,7 +10,8 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-    
+    # App\Security\voter\ProductVoter:
+    #     arguments: ['@security']
     # App\Entity\Type:
     # App\Controller\TypeController:
     #     arguments:
