@@ -12,6 +12,7 @@
             
              <p style="display: inline-block; vertical-align: middle;">price: {{ VoirArticle.getPrixUnitaire()  }} $</p>
              <p style="display: inline-block; vertical-align: middle;">Prix: {{VoirArticle.description }}</p>
+               <a href="#" class="btn btn-primary ">Ajouter au panier</a>
 
              {% set otherImages = VoirArticle.getOtherArticleImages() %}
     {% if otherImages %}
