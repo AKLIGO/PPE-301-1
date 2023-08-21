@@ -8,9 +8,9 @@ use PhpParser\Node\Stmt\Break_;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Componnent\Security\Core\Security;
+use Symfony\Component\Security\Core\Security;
 
-class ProductVoter extends Voter
+class ArticletVoter extends Voter
 {
     const EDIT = 'PRODUCT_EDIT';
     const DELETE = 'PRODUCT_DELETE';

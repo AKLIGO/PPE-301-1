@@ -49,3 +49,13 @@ app_view:
     path: /voir/{id}
     controller: App\Controller\ArticleController::voir
     methods: [GET]
+
+
+access_denied_custom:
+    path: /access-denied-custom
+    controller: App\Controller\CustomAccessDeniedController::accessDenied
+
+# access_denieds:
+#     path: /access-denied
+#     controller: App\Controller\AccessDeniedController::accessDenied
+

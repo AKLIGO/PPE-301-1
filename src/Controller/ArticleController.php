@@ -107,6 +107,13 @@ class ArticleController extends AbstractController
         ]);
     }
 
+    #[Route('/acces', name: 'acces-refuser')]
+    public function acces(): Response
+    {
+        return $this->render('article/acces.html.twig');
+    }
+
+
 
 
     // #[Route('/delete{id}', name: 'app_delete')]

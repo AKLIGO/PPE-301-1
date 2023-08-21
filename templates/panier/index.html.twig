@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<main class="container">
+  <section class="row">
+      <div class="col-12">
+        <h1>Panier</h1>
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>Produit</th>
+                      <th>Prix</th>
+                      <th>Quantiter</th>
+                      <th>Total</th>
+                      <th>Action</th>
+                  </tr>
+              </thead>
+               <tbody>
+                {% for element in data %}
+                  <tr>
+                  
+                <td>{{ element.articles.nom }}</td>
+                <td>{{ element.articles.getPrixUnitaire()}}</td>
+                 <td>{{ element.quantiter}}</td>
+                  <td>{{ element.quantiter * element.articles.getPrixUnitaire()}}</td>
+                  <td>
+                    <a href="{{ path('panier_addArticle', {id: element.articles.id}) }}" class="btn btn-success">+</a>
+                    <a href="{{ path('panier_remove', {id: element.articles.id}) }}" class="btn btn-warning">-</a>
+                  </td>
+                  </tr>
+                   {% else %}
+                      <tr>
+                          <td colspan="5">Votre panier est vide</td>
+                      </tr>
+                   
+                {% endfor %} 
+             
+              </tbody>
+               <tfoot>
+                  <tr>
+                      <td colspan="3">Total</td>
+                      <td>{{ total }}</td>
+                      <td><a href="{{ path('panier_empty')}}" class="btn btn-danger">Vider</a></td>
+                  </tr>
+             
+              </tfoot>
+          </table>
+        </div>
+        </section>
+        </main>
+  
+{% endblock %}

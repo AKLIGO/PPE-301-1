@@ -6,6 +6,7 @@
 parameters:
 
 services:
+    App\Entity\Articles:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -30,6 +31,13 @@ services:
     App\Doctrine\Types\Configuration:
         tags:
             - { name: doctrine.dbal.type }
+
+            
+
+    # App\Security\AccessDeniedListener:
+    #     arguments:
+    #         $urlGenerator: '@Symfony\Component\Routing\Generator\UrlGeneratorInterface'
+
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
