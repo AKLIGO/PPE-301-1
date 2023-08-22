@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DetailsCommandesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: DetailsCommandesRepository::class)]
 class DetailsCommandes
@@ -18,6 +19,9 @@ class DetailsCommandes
 
     #[ORM\Column]
     private ?float $quantites = null;
+
+    // #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    // private \DateTimeInterface $date_livraison;
 
     #[ORM\ManyToOne(inversedBy: 'detailsCommandes')]
     private ?Articles $articles = null;
@@ -65,6 +69,19 @@ class DetailsCommandes
 
         return $this;
     }
+
+    // public function getDateLivraison(): ?\DateTimeInterface
+    // {
+    //     return $this->date_livraison;
+    // }
+
+    // public function setDateLivraison(\DateTimeInterface $date_livraison): static
+    // {
+    //     $this->date_livraison = $date_livraison;
+
+    //     return $this;
+    // }
+
 
     public function getCommandes(): ?Commandes
     {

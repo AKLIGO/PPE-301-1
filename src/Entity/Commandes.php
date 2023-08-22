@@ -16,22 +16,21 @@ class Commandes
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_creat = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private \DateTimeInterface $date_creat;
 
     #[ORM\Column(length: 255)]
     private ?string $reference = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_livraison = null;
 
-    #[ORM\OneToMany(mappedBy: 'commandes', targetEntity: CouponsCommandes::class)]
+
+    #[ORM\OneToMany(mappedBy: 'commandes', targetEntity: CouponsCommandes::class, cascade: ['persist'])]
     private Collection $couponsCommandes;
 
-    #[ORM\OneToMany(mappedBy: 'commandes', targetEntity: DetailsCommandes::class)]
+    #[ORM\OneToMany(mappedBy: 'commandes', targetEntity: DetailsCommandes::class, cascade: ['persist'])]
     private Collection $detailsCommandes;
 
-    #[ORM\OneToMany(mappedBy: 'commandes', targetEntity: CommandUsers::class)]
+    #[ORM\OneToMany(mappedBy: 'commandes', targetEntity: CommandUsers::class, cascade: ['persist'])]
     private Collection $commandUsers;
 
     public function __construct()
@@ -76,17 +75,7 @@ class Commandes
         return $this;
     }
 
-    public function getDateLivraison(): ?\DateTimeInterface
-    {
-        return $this->date_livraison;
-    }
 
-    public function setDateLivraison(\DateTimeInterface $date_livraison): static
-    {
-        $this->date_livraison = $date_livraison;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, CouponsCommandes>
