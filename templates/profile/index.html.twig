@@ -3,18 +3,11 @@
 {% block title %}Hello ProfileController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<a href="/Article/create"  class="btn btn-danger">Créer un nouvel article</a>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<a href="/Article/lire" class="btn btn-primary">liste des articles</a>
+<a href="/categorie/createCategorie"  class="btn btn-warning">Ajouter une categorie</a>
+<a href="/marque/createMarque"  class="btn btn-secondary">Ajouter une marque</a>
+    
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/code_PPE300/code_Ecommerce/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/code_PPE300/code_Ecommerce/templates/profile/index.html.twig'|file_link(0) }}">templates/profile/index.html.twig</a></code></li>
-    </ul>
-</div>
 {% endblock %}

@@ -10,8 +10,8 @@
                 <p style="display: inline-block; vertical-align: middle;">Cet article n'a pas d'image associée.</p>
             {% endif %}
             
-             <p style="display: inline-block; vertical-align: middle;">price: {{ VoirArticle.getPrixUnitaire()  }} $</p>
-             <p style="display: inline-block; vertical-align: middle;">Prix: {{VoirArticle.description }}</p><br/>
+             <p style="display: inline-block; vertical-align: middle;">price: {{ VoirArticle.getPrixUnitaire()  }} $</p> <br/>
+             <p style="display: inline-block; vertical-align: middle;">description: {{VoirArticle.description }}</p><br/>
                 <a href="{{path('panier_addArticle', {id: VoirArticle.id})}}" class="btn btn-primary ">Ajouter au panier</a> 
 
              {% set otherImages = VoirArticle.getOtherArticleImages() %}

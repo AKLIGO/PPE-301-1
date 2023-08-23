@@ -76,23 +76,23 @@ class ArticleController extends AbstractController
 
 
 
-    #[Route('/delete/{id}', name: 'app_delete')]
-    public function delete(int $id, ArticlesRepository $articlesRepository, EntityManagerInterface $entityManager)
-    {
-        // Charger l'entité Articles à partir de l'ID
-        $article = $articlesRepository->find($id);
+    // #[Route('/delete/{id}', name: 'app_delete')]
+    // public function delete(int $id, ArticlesRepository $articlesRepository, EntityManagerInterface $entityManager)
+    // {
+    //     // Charger l'entité Articles à partir de l'ID
+    //     $article = $articlesRepository->find($id);
 
-        if (!$article) {
-            throw $this->createNotFoundException('Article not found.');
-        }
+    //     if (!$article) {
+    //         throw $this->createNotFoundException('Article not found.');
+    //     }
 
-        // Supprimer l'article de la base de données
-        $entityManager->remove($article);
-        $entityManager->flush();
+    //     // Supprimer l'article de la base de données
+    //     $entityManager->remove($article);
+    //     $entityManager->flush();
 
-        // Rediriger vers la liste des articles après la suppression
-        return $this->redirectToRoute('app_read');
-    }
+    //     // Rediriger vers la liste des articles après la suppression
+    //     return $this->redirectToRoute('app_read');
+    // }
 
     #[Route('/voir/{id}', name: 'app_view')]
     public function voir(int $id, ArticlesRepository $articlesRepository,  EntityManagerInterface $entityManager)

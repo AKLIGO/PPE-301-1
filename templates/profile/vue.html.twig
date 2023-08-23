@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Créer un nouvel Article</h1>
+
+    <form method="post" action="#">
+        {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.prix_unitaire) }}
+        {{ form_row(form.stock) }}
+        {{ form_row(form.couleur) }}
+        {{ form_row(form.valid) }}
+        {{ form_row(form.type) }}
+        {{ form_row(form.marque) }}
+
+        {{ form_row(form.articleImages) }}
+
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+          {{ form_end(form) }}
+    </form>
+{% endblock %}
